@@ -1,4 +1,4 @@
-package dialtechnologies.architecture.component.dial.dialcomponentachitecture.view.user;
+package dialtechnologies.architecture.component.dial.dialcomponentachitecture.ui.user;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

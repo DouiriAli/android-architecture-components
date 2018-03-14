@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import dialtechnologies.architecture.component.dial.dialcomponentachitecture.DialApp;
-import dialtechnologies.architecture.component.dial.dialcomponentachitecture.view.user.UserViewModel;
+import dialtechnologies.architecture.component.dial.dialcomponentachitecture.ui.user.UserViewModel;
 
 /**
  * Created by DOUIRI Ali on 12/03/2018.

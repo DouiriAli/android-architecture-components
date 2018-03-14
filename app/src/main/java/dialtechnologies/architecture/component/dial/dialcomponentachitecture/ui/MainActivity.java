@@ -1,11 +1,11 @@
-package dialtechnologies.architecture.component.dial.dialcomponentachitecture.view;
+package dialtechnologies.architecture.component.dial.dialcomponentachitecture.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import dialtechnologies.architecture.component.dial.dialcomponentachitecture.R;
-import dialtechnologies.architecture.component.dial.dialcomponentachitecture.view.user.ListFragment;
+import dialtechnologies.architecture.component.dial.dialcomponentachitecture.ui.user.ListFragment;
 
 public class MainActivity extends AppCompatActivity {
 

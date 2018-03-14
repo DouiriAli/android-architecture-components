@@ -34,7 +34,6 @@ public class DialApp extends Application {
 
         appComponent.inject(this);
 
-        mUserRepository.deleteAllUsers();
         mUserRepository.getUsersOnline();
     }
 

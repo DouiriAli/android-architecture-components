@@ -14,8 +14,13 @@ import dialtechnologies.architecture.component.dial.dialcomponentachitecture.dat
 import dialtechnologies.architecture.component.dial.dialcomponentachitecture.data.room.UserEntity;
 import dialtechnologies.architecture.component.dial.dialcomponentachitecture.utils.Transformation;
 import retrofit2.Response;
+import rx.Completable;
+import rx.CompletableSubscriber;
 import rx.Observer;
+import rx.Scheduler;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 
 /**
@@ -36,7 +41,7 @@ public class UserRepository implements Repository {
 
     public UserRepository(RoomDataSource roomDataSource, RemoteDataSource remoteDataSource) {
 
-        this.mRoomDataSource   = roomDataSource;
+        this.mRoomDataSource = roomDataSource;
         this.mRemoteDataSource = remoteDataSource;
 
         mObservableUsers = new MediatorLiveData<>();
@@ -47,17 +52,13 @@ public class UserRepository implements Repository {
 
     @Override
     public void saveUsersDb(List<UserEntity> users) {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mRoomDataSource.getUserDao().insertAll(users);
-            }
-        }).start();
+        mRoomDataSource.getUserDao().insertAll(users);
     }
 
     @Override
-    public LiveData<List<UserEntity>> getUsersDb() {return mObservableUsers;}
+    public LiveData<List<UserEntity>> getUsersDb() {
+        return mObservableUsers;
+    }
 
     @Override
     public void getUsersOnline() {
@@ -81,7 +82,36 @@ public class UserRepository implements Repository {
                     @Override
                     public void onNext(Response<List<UserResponse>> response) {
 
-                        if (response.isSuccessful()) saveUsersDb(Transformation.toUserEntities(response.body()));
+                        if (response.isSuccessful()) {
+
+                            Completable.fromAction(new Action0() {
+                                @Override
+                                public void call() {
+
+                                    deleteAllUsers();
+                                    saveUsersDb(Transformation.toUserEntities(response.body()));
+                                }
+                            }).subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new CompletableSubscriber() {
+                                        @Override
+                                        public void onCompleted() {
+
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+
+                                            Log.e(TAG, e.getMessage());
+
+                                        }
+
+                                        @Override
+                                        public void onSubscribe(Subscription d) {
+
+                                        }
+                                    });
+                        }
 
                     }
                 });
@@ -90,14 +120,7 @@ public class UserRepository implements Repository {
 
     @Override
     public void deleteAllUsers() {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mRoomDataSource.getUserDao().deleteAll();
-            }
-        }).start();
-
+        mRoomDataSource.getUserDao().deleteAll();
     }
 }
 
