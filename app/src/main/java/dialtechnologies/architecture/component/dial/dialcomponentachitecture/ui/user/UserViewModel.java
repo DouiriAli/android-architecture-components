@@ -24,9 +24,6 @@ public class UserViewModel extends AndroidViewModel {
 
     private static final String TAG = UserViewModel.class.getSimpleName();
 
-    private MediatorLiveData<List<UserEntity>> mObservableUsers;
-
-    private LiveData<List<UserEntity>> mUsers;
 
     @Inject
     UserRepository mUserRepository;
@@ -37,18 +34,11 @@ public class UserViewModel extends AndroidViewModel {
 
         ((DialApp) application).getAppComponent().inject(this);
 
-        mObservableUsers = new MediatorLiveData<>();
-
-        mObservableUsers.setValue(null);
-
-        mUsers = mUserRepository.getUsersDb();
-
-        mObservableUsers.addSource(mUsers,
-                users -> mObservableUsers.setValue(users));
     }
 
     public LiveData<List<UserEntity>> getAllUsers() {
-        return mObservableUsers;
+
+        return mUserRepository.getUsersDb();
     }
 
 }
