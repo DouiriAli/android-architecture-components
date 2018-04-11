@@ -4,7 +4,7 @@ android {
     compileSdkVersion build_versions.target_sdk
     buildToolsVersion build_versions.build_tools
     defaultConfig {
-        applicationId "dialtechnologies.architecture.component.dial.dialcomponentachitecture"
+        applicationId "androidarchitecturecomponent.example"
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
         versionCode 1
@@ -71,12 +71,6 @@ dependencies {
     implementation "com.google.dagger:dagger:$versions.dagger"
     annotationProcessor "com.google.dagger:dagger-compiler:$versions.dagger"
 
-    // Paper
-    implementation "io.paperdb:paperdb:$versions.paper"
-
     // Glide
     implementation "com.github.bumptech.glide:glide:$versions.glide"
-
-    // Timber
-    implementation "com.jakewharton.timber:timber:$versions.timber"
 }
