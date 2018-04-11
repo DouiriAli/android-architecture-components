@@ -13,12 +13,14 @@ Tools used on the sample project
 * [RxJava & RxAndroid][2]
 * [Dagger 2][3]
 * [Retrofit][4]
+* [Butter Knife][5]
 
 
 [1]: https://developer.android.com/topic/libraries/architecture/adding-components.html
 [2]: https://github.com/ReactiveX/RxAndroid
 [3]: https://github.com/google/dagger
 [4]: https://github.com/square/retrofit
+[4]: http://jakewharton.github.io/butterknife/
 
 
 # Demo
@@ -43,9 +45,7 @@ Tools used on the sample project
 Developed By
 ------------
 
-* DOUIRI Ali  - <my.alidouiri@gmail.com> or <a.douiri@dialy.net>
+* DOUIRI Ali  - <my.alidouiri@gmail.com>
 
 License
 -------
-
-    Copyright 2018 Dial Technologies
