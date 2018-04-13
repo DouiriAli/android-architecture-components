@@ -17,7 +17,7 @@ import java.util.List;
 public interface UserDao {
 
     @Query("SELECT * FROM users")
-    LiveData<List<UserEntity>> getAllUsers();
+    LiveData<List<UserEntity>> getUsers();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void saveUsers(List<UserEntity> users);

@@ -2,6 +2,7 @@ package androidarchitecturecomponent.example.ui.user;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LiveData;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import androidarchitecturecomponent.example.data.local.UserEntity;
  * my.alidouiri@gmail.com
  */
 
-public class UserViewModel extends AndroidViewModel {
+public class UserViewModel extends AndroidViewModel implements LifecycleObserver {
 
     private static final String TAG = UserViewModel.class.getSimpleName();
 

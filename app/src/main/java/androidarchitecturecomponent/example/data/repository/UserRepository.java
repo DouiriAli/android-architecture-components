@@ -29,20 +29,13 @@ public class UserRepository implements Repository {
 
     private static final String TAG = UserRepository.class.getSimpleName();
 
-    private final LocalDataSource mRoomDataSource;
+    private final LocalDataSource mLocalDataSource;
     private final RemoteDataSource mRemoteDataSource;
-
-    private MediatorLiveData<List<UserEntity>> mObservableUsers = new MediatorLiveData<>();
 
     public UserRepository(LocalDataSource roomDataSource, RemoteDataSource remoteDataSource) {
 
-        this.mRoomDataSource = roomDataSource;
+        this.mLocalDataSource = roomDataSource;
         this.mRemoteDataSource = remoteDataSource;
-
-        mObservableUsers = new MediatorLiveData<>();
-
-        mObservableUsers.addSource(mRoomDataSource.getUserDao().getAllUsers(),
-                users -> mObservableUsers.postValue(users));
     }
 
     /**
@@ -52,7 +45,7 @@ public class UserRepository implements Repository {
      */
     @Override
     public void saveUsers(List<UserEntity> users) {
-        mRoomDataSource.getUserDao().saveUsers(users);
+        mLocalDataSource.getUserDao().saveUsers(users);
     }
 
     /**
@@ -62,7 +55,7 @@ public class UserRepository implements Repository {
      */
     @Override
     public LiveData<List<UserEntity>> getUsersFromDb() {
-        return mObservableUsers;
+        return mLocalDataSource.getUserDao().getUsers();
     }
 
     /**
@@ -133,7 +126,7 @@ public class UserRepository implements Repository {
      */
     @Override
     public void deleteUsers() {
-        mRoomDataSource.getUserDao().deleteUsers();
+        mLocalDataSource.getUserDao().deleteUsers();
     }
 }
 
